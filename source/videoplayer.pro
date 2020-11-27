@@ -4,7 +4,7 @@
 
 TEMPLATE = app
 TARGET = videoplayer
-QT += core widgets #multimediawidgets multimedia
+QT += core widgets multimediawidgets multimedia
 
 SOURCES += main.cpp \
 	MainWindow.cpp

@@ -1,7 +1,8 @@
 #include "MainWindow.h"
 #include <QHBoxLayout>
 #include <QSlider>
-//#include <QVideoWidget>
+#include <QVideoWidget>
+#include <QPushButton>
 
 MainWindow::MainWindow()
 {
@@ -15,17 +16,17 @@ MainWindow::~MainWindow()
 void MainWindow::createControls()
 {
 	auto layout = new QHBoxLayout(this);
-	//layout->addWidget(makeVideoWidget());
+	layout->addWidget(makeVideoWidget());
 	//layout->addWidget(makeProgressControl());
 	//layout->addLayout(makeControlWidget());
 }
 
 
-//QWidget* MainWindow::makeVideoWidget()
-//{
-//	auto w = new QVideoWidget;
-//	return w;
-//}
+QWidget* MainWindow::makeVideoWidget()
+{
+	auto w = new QVideoWidget;
+	return w;
+}
 
 QWidget* MainWindow::makeProgressControl()
 {
@@ -33,11 +34,24 @@ QWidget* MainWindow::makeProgressControl()
 	return w;
 }
 
-//QLayout* MainWindow::makeControlWidget()
-//{
-//	auto layout = new QHBoxLayout;
-//	layout->addStretch();
-//	layout->addWidget(makePlayButton());
-//	layout->addWidget(makeStopButton());
-//	layout->addStretch();
-//}
+QLayout* MainWindow::makeControlWidget()
+{
+	auto layout = new QHBoxLayout;
+	layout->addStretch();
+	layout->addWidget(makePlayButton());
+	layout->addWidget(makeStopButton());
+	layout->addStretch();
+	return layout;
+}
+
+QWidget* MainWindow::makePlayButton()
+{
+	auto w = new QPushButton("&Play");
+	return w;
+}
+
+QWidget* MainWindow::makeStopButton()
+{
+	auto w = new QPushButton("&Stop");
+	return w;
+}
