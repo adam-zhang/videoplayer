@@ -2,8 +2,11 @@
 #define __MAINWINDOW__H
 
 #include <QDialog>
+#include <QWidget>
 
-class MainWindow : public QDialog
+class QMediaPlayer;
+
+class MainWindow : public QWidget
 {
 public:
 	MainWindow();
@@ -15,5 +18,14 @@ private:
 	QLayout* makeControlWidget();
 	QWidget* makePlayButton();
 	QWidget* makeStopButton();
+	QWidget* makeOpenButton();
+	void makePlayer();
+
+	QMediaPlayer* player_;
+
+private slots:
+	void onOpenButtonClicked();
+	void onPositionChanged(qint64);
+
 };
 #endif//__MAINWINDOW__H
