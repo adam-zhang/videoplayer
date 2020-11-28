@@ -5,10 +5,13 @@
 #include <QWidget>
 
 class QMediaPlayer;
-class QVideoWidget;
+class VideoWidget;
+class QSlider;
+class QKeyEvent;
 
 class MainWindow : public QWidget
 {
+	Q_OBJECT
 public:
 	MainWindow();
 	~MainWindow();
@@ -23,11 +26,18 @@ private:
 	void makePlayer();
 
 	QMediaPlayer* player_;
-	QVideoWidget* videoWidget_;
-
+	VideoWidget* videoWidget_;
+	QSlider* slider_;
+	QWidget* screen_;
+public:
+	void showFullScreen();
 private slots:
 	void onOpenButtonClicked();
 	void onPositionChanged(qint64);
+	void onExitFullScreen();
+private:
+	void keyPressEvent(QKeyEvent* event);
+	QSize getScreenSize();
 
 };
 #endif//__MAINWINDOW__H

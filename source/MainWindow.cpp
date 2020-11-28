@@ -1,15 +1,21 @@
 #include "MainWindow.h"
+#include <QKeyEvent>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QSlider>
-#include <QVideoWidget>
+#include "VideoWidget.h"
+//#include <QVideoWidget>
 #include <QPushButton>
 #include <QMediaPlayer>
 #include <QFileDialog>
+#include <QGuiApplication>
+#include <QScreen>
 
 MainWindow::MainWindow()
 	: player_(0)
 	  ,videoWidget_(0)
+	  ,slider_(0)
+	  , screen_(0)
 {
 	createControls();
 	setGeometry(100, 100, 800, 600);
@@ -24,7 +30,7 @@ void MainWindow::createControls()
 	makePlayer();
 	auto layout = new QVBoxLayout(this);
 	layout->addWidget(makeVideoWidget());
-	//layout->addWidget(makeProgressControl());
+	layout->addWidget(makeProgressControl());
 	layout->addLayout(makeControlWidget());
 }
 
@@ -36,20 +42,28 @@ void MainWindow::makePlayer()
 
 void MainWindow::onPositionChanged(qint64 value)
 {
-	qDebug() << "position:" << value;
+	if (player_->duration() == 0)
+		return;
+	int v = value / float(player_->duration()) * 100;
+	qDebug() << "before set value:" << value << ":" << player_->duration() << ":" << v;
+	//slider_->setValue(0);
 }
 
 
 QWidget* MainWindow::makeVideoWidget()
 {
-	auto w = new QVideoWidget;
+	auto w = new VideoWidget;
 	videoWidget_ = w;
+	connect(w, &VideoWidget::exitFullScreen, this, &MainWindow::onExitFullScreen);
 	return w;
 }
 
 QWidget* MainWindow::makeProgressControl()
 {
 	auto w = new QSlider;
+	w->setOrientation(Qt::Horizontal);
+	w->setMinimum(0);
+	w->setMaximum(100);
 	return w;
 }
 
@@ -90,4 +104,29 @@ void MainWindow::onOpenButtonClicked()
 	player_->setVolume(100);
 	player_->setVideoOutput(videoWidget_);
 	player_->play();
+}
+
+void MainWindow::keyPressEvent(QKeyEvent* event)
+{
+	if (event->key() == Qt::Key_Enter|| event->key() == Qt::Key_F)
+		showFullScreen();
+	else if(event->key() == Qt::Key_Escape)
+		showFullScreen();
+}
+
+void MainWindow::showFullScreen()
+{
+	videoWidget_->setFullScreen(!videoWidget_->isFullScreen());
+}
+
+void MainWindow::onExitFullScreen()
+{
+	videoWidget_->setFullScreen(false);
+}
+
+QSize MainWindow::getScreenSize()
+{
+	auto screen = QGuiApplication::primaryScreen();
+	auto rect = screen->availableGeometry();
+	return QSize(rect.width(), rect.height());
 }

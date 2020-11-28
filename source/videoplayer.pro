@@ -7,6 +7,10 @@ TARGET = videoplayer
 QT += core widgets multimediawidgets multimedia
 
 SOURCES += main.cpp \
-	MainWindow.cpp
+	MainWindow.cpp \
+	VideoWidget.cpp
+
+HEADERS += MainWindow.h \
+	VideoWidget.h
 
 # Directories
