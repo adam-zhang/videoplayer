@@ -9,6 +9,7 @@
 
 MainWindow::MainWindow()
 	: player_(0)
+	  ,videoWidget_(0)
 {
 	createControls();
 	setGeometry(100, 100, 800, 600);
@@ -23,7 +24,7 @@ void MainWindow::createControls()
 	makePlayer();
 	auto layout = new QVBoxLayout(this);
 	layout->addWidget(makeVideoWidget());
-	layout->addWidget(makeProgressControl());
+	//layout->addWidget(makeProgressControl());
 	layout->addLayout(makeControlWidget());
 }
 
@@ -33,15 +34,16 @@ void MainWindow::makePlayer()
 	connect(player_, &QMediaPlayer::positionChanged, this, &MainWindow::onPositionChanged);
 }
 
-void MainWindow::onPositionChanged(qint64 /*value*/)
+void MainWindow::onPositionChanged(qint64 value)
 {
-
+	qDebug() << "position:" << value;
 }
 
 
 QWidget* MainWindow::makeVideoWidget()
 {
 	auto w = new QVideoWidget;
+	videoWidget_ = w;
 	return w;
 }
 
@@ -85,4 +87,7 @@ void MainWindow::onOpenButtonClicked()
 {
 	auto fileName = QFileDialog::getOpenFileName(this, tr("Open Video"), ".", tr("Video Files(*.mp4)"));
 	player_->setMedia(QUrl::fromLocalFile(fileName));
+	player_->setVolume(100);
+	player_->setVideoOutput(videoWidget_);
+	player_->play();
 }

@@ -5,6 +5,7 @@
 #include <QWidget>
 
 class QMediaPlayer;
+class QVideoWidget;
 
 class MainWindow : public QWidget
 {
@@ -22,6 +23,7 @@ private:
 	void makePlayer();
 
 	QMediaPlayer* player_;
+	QVideoWidget* videoWidget_;
 
 private slots:
 	void onOpenButtonClicked();
