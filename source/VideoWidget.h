@@ -13,7 +13,9 @@ public:
 	~VideoWidget();
 signals:
 	void exitFullScreen();
+	void enterFullScreen();
 protected:
 	void keyPressEvent(QKeyEvent* e);
+	void mouseDoubleClickEvent(QMouseEvent* e);
 };
 #endif//__VIDEOWIDGET__H

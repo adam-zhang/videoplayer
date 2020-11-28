@@ -35,9 +35,13 @@ private slots:
 	void onOpenButtonClicked();
 	void onPositionChanged(qint64);
 	void onExitFullScreen();
-private:
+	void onEnterFullScreen();
+protected:
 	void keyPressEvent(QKeyEvent* event);
+	void mouseDoubleClickEvent(QMouseEvent* e);
+private:
 	QSize getScreenSize();
+	void skip(qint64);
 
 };
 #endif//__MAINWINDOW__H

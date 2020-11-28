@@ -4,7 +4,7 @@
 #include <QVBoxLayout>
 #include <QSlider>
 #include "VideoWidget.h"
-//#include <QVideoWidget>
+#include <QMouseEvent>
 #include <QPushButton>
 #include <QMediaPlayer>
 #include <QFileDialog>
@@ -49,12 +49,19 @@ void MainWindow::onPositionChanged(qint64 value)
 	//slider_->setValue(0);
 }
 
+void MainWindow::skip(qint64 value)
+{
+	player_->setPosition(player_->position() + value * 1000);
+	qDebug() << "current position:" << player_->position();
+}
+
 
 QWidget* MainWindow::makeVideoWidget()
 {
 	auto w = new VideoWidget;
 	videoWidget_ = w;
 	connect(w, &VideoWidget::exitFullScreen, this, &MainWindow::onExitFullScreen);
+	connect(w, &VideoWidget::enterFullScreen, this, &MainWindow::onEnterFullScreen);
 	return w;
 }
 
@@ -110,13 +117,18 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 {
 	if (event->key() == Qt::Key_Enter|| event->key() == Qt::Key_F)
 		showFullScreen();
-	else if(event->key() == Qt::Key_Escape)
-		showFullScreen();
+	else if (event->key() == Qt::Key_Up)
+		skip(30);
+	else if (event->key() == Qt::Key_Down)
+		skip(-30);
+	else if (event->key() == Qt::Key_Right)
+		skip(10);
+	else if (event->key() == Qt::Key_Left)
+		skip(-10);
 }
-
 void MainWindow::showFullScreen()
 {
-	videoWidget_->setFullScreen(!videoWidget_->isFullScreen());
+	videoWidget_->setFullScreen(true);
 }
 
 void MainWindow::onExitFullScreen()
@@ -129,4 +141,15 @@ QSize MainWindow::getScreenSize()
 	auto screen = QGuiApplication::primaryScreen();
 	auto rect = screen->availableGeometry();
 	return QSize(rect.width(), rect.height());
+}
+
+
+void MainWindow::mouseDoubleClickEvent(QMouseEvent* )
+{
+	videoWidget_->setFullScreen(true);
+}
+
+void MainWindow::onEnterFullScreen()
+{
+	videoWidget_->setFullScreen(true);
 }
