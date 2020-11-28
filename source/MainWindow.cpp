@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include <QTimer>
 #include <QKeyEvent>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -16,6 +17,7 @@ MainWindow::MainWindow()
 	  ,videoWidget_(0)
 	  ,slider_(0)
 	  , screen_(0)
+	  , timer_(0)
 {
 	createControls();
 	setGeometry(100, 100, 800, 600);
@@ -37,7 +39,8 @@ void MainWindow::createControls()
 void MainWindow::makePlayer()
 {
 	player_ = new QMediaPlayer(this);
-	connect(player_, &QMediaPlayer::positionChanged, this, &MainWindow::onPositionChanged);
+	//connect(player_, &QMediaPlayer::positionChanged, this, &MainWindow::onPositionChanged);
+	connect(player_, &QMediaPlayer::mediaChanged, this, &MainWindow::onMediaChanged);
 }
 
 void MainWindow::onPositionChanged(qint64 value)
@@ -71,6 +74,7 @@ QWidget* MainWindow::makeProgressControl()
 	w->setOrientation(Qt::Horizontal);
 	w->setMinimum(0);
 	w->setMaximum(100);
+	slider_ = w;
 	return w;
 }
 
@@ -152,4 +156,27 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent* )
 void MainWindow::onEnterFullScreen()
 {
 	videoWidget_->setFullScreen(true);
+}
+
+void MainWindow::onMediaChanged()
+{
+	if (player_->mediaStatus() == QMediaPlayer::NoMedia && timer_ != nullptr)
+	{
+		timer_->stop();
+		delete timer_;
+		timer_ = nullptr;
+	}
+	else
+	{
+		timer_ = new QTimer(this);
+		timer_->setInterval(1000);
+		connect(timer_, &QTimer::timeout, this, &MainWindow::onTimeout);
+		timer_->start();
+	}
+}
+
+void MainWindow::onTimeout()
+{
+	auto percentage = player_->position() / float(player_->duration()) * 100;
+	slider_->setValue(percentage);
 }

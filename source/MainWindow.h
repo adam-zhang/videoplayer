@@ -8,6 +8,7 @@ class QMediaPlayer;
 class VideoWidget;
 class QSlider;
 class QKeyEvent;
+class QTimer;
 
 class MainWindow : public QWidget
 {
@@ -29,6 +30,7 @@ private:
 	VideoWidget* videoWidget_;
 	QSlider* slider_;
 	QWidget* screen_;
+	QTimer* timer_;
 public:
 	void showFullScreen();
 private slots:
@@ -36,6 +38,8 @@ private slots:
 	void onPositionChanged(qint64);
 	void onExitFullScreen();
 	void onEnterFullScreen();
+	void onMediaChanged();
+	void onTimeout();
 protected:
 	void keyPressEvent(QKeyEvent* event);
 	void mouseDoubleClickEvent(QMouseEvent* e);
