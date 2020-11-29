@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include <cassert>
 #include <QTimer>
 #include <QKeyEvent>
 #include <QHBoxLayout>
@@ -34,13 +35,23 @@ void MainWindow::createControls()
 	layout->addWidget(makeVideoWidget());
 	layout->addWidget(makeProgressControl());
 	layout->addLayout(makeControlWidget());
+	createTimer();
+}
+
+void MainWindow::createTimer()
+{
+	timer_ = new QTimer(this);
+	assert(timer_);
+	connect(timer_, &QTimer::timeout, this, &MainWindow::onTimeout);
+	timer_->setInterval(1000);
+	timer_->start();
 }
 
 void MainWindow::makePlayer()
 {
 	player_ = new QMediaPlayer(this);
 	//connect(player_, &QMediaPlayer::positionChanged, this, &MainWindow::onPositionChanged);
-	connect(player_, &QMediaPlayer::mediaChanged, this, &MainWindow::onMediaChanged);
+	//connect(player_, &QMediaPlayer::mediaChanged, this, &MainWindow::onMediaChanged);
 }
 
 void MainWindow::onPositionChanged(qint64 value)
@@ -74,8 +85,19 @@ QWidget* MainWindow::makeProgressControl()
 	w->setOrientation(Qt::Horizontal);
 	w->setMinimum(0);
 	w->setMaximum(100);
+	connect(w, &QSlider::valueChanged, this, &MainWindow::onSliderValueChanged);
 	slider_ = w;
 	return w;
+}
+
+void MainWindow::onSliderValueChanged(int value)
+{
+	player_->setPosition(player_->duration() / 100 * value);
+}
+
+void MainWindow::onButtonStop()
+{
+	player_->stop();
 }
 
 QLayout* MainWindow::makeControlWidget()
@@ -98,6 +120,7 @@ QWidget* MainWindow::makePlayButton()
 QWidget* MainWindow::makeStopButton()
 {
 	auto w = new QPushButton("&Stop");
+	connect(w, &QPushButton::clicked, this, &MainWindow::onButtonStop);
 	return w;
 }
 
@@ -158,22 +181,22 @@ void MainWindow::onEnterFullScreen()
 	videoWidget_->setFullScreen(true);
 }
 
-void MainWindow::onMediaChanged()
-{
-	if (player_->mediaStatus() == QMediaPlayer::NoMedia && timer_ != nullptr)
-	{
-		timer_->stop();
-		delete timer_;
-		timer_ = nullptr;
-	}
-	else
-	{
-		timer_ = new QTimer(this);
-		timer_->setInterval(1000);
-		connect(timer_, &QTimer::timeout, this, &MainWindow::onTimeout);
-		timer_->start();
-	}
-}
+//void MainWindow::onMediaChanged()
+//{
+//	if (player_->mediaStatus() == QMediaPlayer::NoMedia && timer_ != nullptr)
+//	{
+//		timer_->stop();
+//		delete timer_;
+//		timer_ = nullptr;
+//	}
+//	else
+//	{
+//		timer_ = new QTimer(this);
+//		timer_->setInterval(1000);
+//		connect(timer_, &QTimer::timeout, this, &MainWindow::onTimeout);
+//		timer_->start();
+//	}
+//}
 
 void MainWindow::onTimeout()
 {

@@ -24,6 +24,7 @@ private:
 	QWidget* makePlayButton();
 	QWidget* makeStopButton();
 	QWidget* makeOpenButton();
+	void createTimer();
 	void makePlayer();
 
 	QMediaPlayer* player_;
@@ -38,8 +39,9 @@ private slots:
 	void onPositionChanged(qint64);
 	void onExitFullScreen();
 	void onEnterFullScreen();
-	void onMediaChanged();
 	void onTimeout();
+	void onButtonStop();
+	void onSliderValueChanged(int);
 protected:
 	void keyPressEvent(QKeyEvent* event);
 	void mouseDoubleClickEvent(QMouseEvent* e);
