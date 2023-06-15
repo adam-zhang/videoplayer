@@ -14,4 +14,34 @@ MainWindow::~MainWindow()
 void MainWindow::initialize()
 {
 	setCentralWidget(new MainWidget);
+	createMenu();
+	createStatusbar();
 }
+
+void MainWidget::createMenu()
+{
+	createFileMenu();
+	createHelpMenu();
+	createToolMenu();
+}
+void MainWindow::createFileMenu()
+{
+
+}
+void MainWindow::createHelpMenu()
+{
+
+}
+void MainWindow::createToolMenu()
+{
+
+}
+
+
+
+
+void MainWidget::createStatusbar()
+{
+
+}
+

@@ -11,6 +11,11 @@ public:
 
 private:
 	void initialize();
+	void createMenu();
+	void  createStatusbar();
+	void createFileMenu();
+	void createHelpMenu();
+	void createToolMenu();
 };
 
 #endif//MAINWINDOW_H
