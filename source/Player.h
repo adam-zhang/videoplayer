@@ -9,12 +9,16 @@
 #define PLAYER_H
 
 #include <QObject>
+#include <QVector>
+#include <QString>
 
 class Player : public QObject
 {
 	Q_OBJECT
 public:
-	Player(QObject* = nullptr);
+	explicit Player(const QVector<QString>& list);
 	~Player();
+public:
+	QVector<QString> list_;
 };
 #endif//PLAYER_H

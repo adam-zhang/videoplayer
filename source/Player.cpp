@@ -7,8 +7,8 @@
 
 #include "Player.h"
 
-Player::Player(QObject* parent)
-	:QObject(parent)
+Player::Player(const QVector<QString>& list)
+	:list_(list)
 {}
 
 Player::~Player(){}

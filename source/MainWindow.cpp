@@ -18,7 +18,7 @@ void MainWindow::initialize()
 	createStatusbar();
 }
 
-void MainWidget::createMenu()
+void MainWindow::createMenu()
 {
 	createFileMenu();
 	createHelpMenu();
@@ -40,7 +40,7 @@ void MainWindow::createToolMenu()
 
 
 
-void MainWidget::createStatusbar()
+void MainWindow::createStatusbar()
 {
 
 }
