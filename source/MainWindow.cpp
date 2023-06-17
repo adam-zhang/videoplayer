@@ -13,6 +13,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::initialize()
 {
+	setGeometry(100, 100, 800, 600);
 	setCentralWidget(new MainWidget);
 	createMenu();
 	createStatusbar();
@@ -36,9 +37,6 @@ void MainWindow::createToolMenu()
 {
 
 }
-
-
-
 
 void MainWindow::createStatusbar()
 {

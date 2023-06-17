@@ -9,6 +9,8 @@
 
 MainWidget::MainWidget(QWidget* parent)
 	:QWidget(parent)
-{}
+{
+	setGeometry(0, 0, 800, 600);
+}
 
 MainWidget::~MainWidget(){}
