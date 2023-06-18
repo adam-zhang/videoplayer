@@ -9,6 +9,7 @@ set(sources main.cpp
 	VideoWidget.cpp
 	ControlWidget.cpp
 	Player.cpp
+	AboutDialog.cpp
 	MainWindow.cpp)
 add_executable(${PROJECT_NAME} ${sources})
 target_link_libraries(${PROJECT_NAME} Qt5::Widgets)

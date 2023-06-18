@@ -6,9 +6,27 @@
 ********************************************************************************/
 
 #include "AboutDialog.h"
+#include <QDialogButtonBox>
 
-AboutDialog::AboutDialog(QObject* parent)
-	:QDialog(parent)
-{}
+AboutDialog::AboutDialog(QWidget* parent)
+	: QDialog(parent)
+{
+	initialize();
+}
 
-AboutDialog::~AboutDialog(){}
+AboutDialog::~AboutDialog()
+{
+
+}
+
+void AboutDialog::initialize()
+{
+	auto box = new QDialogButtonBox(QDialogButtonBox::Ok, this);
+	connect(box, &QDialogButtonBox::accepted, this, &AboutDialog::onAccpted);
+}
+
+void AboutDialog::onAccpted()
+{
+	close();
+}
+

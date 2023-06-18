@@ -14,7 +14,10 @@ class AboutDialog : public QDialog
 {
 	Q_OBJECT
 public:
-	AboutDialog(QObject* = nullptr);
+	AboutDialog(QWidget* = nullptr);
 	~AboutDialog();
+private:
+	void initialize();
+	void onAccpted();
 };
 #endif//ABOUTDIALOG_H

@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include "MainWidget.h"
+#include "AboutDialog.h"
 #include <QMenuBar>
 
 MainWindow::MainWindow(QWidget* parent)
@@ -55,7 +56,8 @@ void MainWindow::createHelpMenu()
 
 void MainWindow::onAboutAction()
 {
-	
+	auto dialog = new AboutDialog(this);
+	dialog->exec();
 }
 
 
