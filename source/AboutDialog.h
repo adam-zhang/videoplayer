@@ -18,6 +18,9 @@ public:
 	~AboutDialog();
 private:
 	void initialize();
+	QLayout* createInfoWidgets();
+	QWidget* createButton();
+private slots:
 	void onAccpted();
 };
 #endif//ABOUTDIALOG_H
