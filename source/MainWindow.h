@@ -16,6 +16,11 @@ private:
 	void createFileMenu();
 	void createHelpMenu();
 	void createToolMenu();
+private slots:
+	void onOpenAction();	
+	void onExitAction();
+	void onAboutAction();
+
 };
 
 #endif//MAINWINDOW_H
