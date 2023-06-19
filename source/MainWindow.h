@@ -20,6 +20,7 @@ private slots:
 	void onOpenAction();	
 	void onExitAction();
 	void onAboutAction();
+	void onTestAction();
 
 };
 

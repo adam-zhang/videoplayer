@@ -3,6 +3,7 @@ project(VideoPlayer)
 add_definitions(-Wall)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 find_package(Qt5Widgets CONFIG REQUIRED)
 set(sources main.cpp
 	MainWidget.cpp
@@ -11,5 +12,5 @@ set(sources main.cpp
 	Player.cpp
 	AboutDialog.cpp
 	MainWindow.cpp)
-add_executable(${PROJECT_NAME} ${sources})
+add_executable(${PROJECT_NAME} images.qrc ${sources})
 target_link_libraries(${PROJECT_NAME} Qt5::Widgets)

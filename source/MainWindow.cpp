@@ -2,6 +2,7 @@
 #include "MainWidget.h"
 #include "AboutDialog.h"
 #include <QMenuBar>
+#include <QLabel>
 
 MainWindow::MainWindow(QWidget* parent)
 	:QMainWindow(parent)
@@ -38,7 +39,7 @@ void MainWindow::createFileMenu()
 
 void MainWindow::onExitAction()
 {
-	
+	close();
 }
 
 
@@ -64,7 +65,16 @@ void MainWindow::onAboutAction()
 void MainWindow::createToolMenu()
 {
 	auto menu = menuBar()->addMenu("&Tools");
+	auto action = menu->addAction("&Test");
+	connect(action, &QAction::triggered, this, &MainWindow::onTestAction);
+}
 
+void MainWindow::onTestAction()
+{
+	//auto label = new QLabel(this);
+	//auto pixmap = QPixmap(":/zmp.head.png");
+	//label->setPixmap(pixmap);
+	//label->show();
 }
 
 void MainWindow::createStatusbar()

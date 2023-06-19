@@ -20,6 +20,9 @@ private:
 	void initialize();
 	QLayout* createInfoWidgets();
 	QWidget* createButton();
+	QWidget* createPictureWidget();
+	QLayout* createPersonalInfoWidgets();
+	QLayout* createInfoLayout();
 private slots:
 	void onAccpted();
 };
