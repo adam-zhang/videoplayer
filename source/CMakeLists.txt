@@ -4,7 +4,8 @@ add_definitions(-Wall)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-find_package(Qt5Widgets CONFIG REQUIRED)
+find_package(Qt5Widgets  CONFIG REQUIRED)
+find_package(Qt5Multimedia CONFIG REQUIRED)
 set(sources main.cpp
 	MainWidget.cpp
 	VideoWidget.cpp
