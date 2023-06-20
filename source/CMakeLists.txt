@@ -12,6 +12,8 @@ set(sources main.cpp
 	ControlWidget.cpp
 	Player.cpp
 	AboutDialog.cpp
-	MainWindow.cpp)
+	MainWindow.cpp
+	PlaybackToolbar.cpp
+	)
 add_executable(${PROJECT_NAME} images.qrc ${sources})
 target_link_libraries(${PROJECT_NAME} Qt5::Widgets)

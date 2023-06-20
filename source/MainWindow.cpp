@@ -25,36 +25,42 @@ void MainWindow::initialize()
 void MainWindow::createMenu()
 {
 	createFileMenu();
-	createPlaybackMenu();
+	//createPlaybackMenu();
 	createToolMenu();
 	createHelpMenu();
 }
 
-void MainWindow::createPlaybackMenu()
-{
-	auto menu = menuBar()->addMenu("&Playback");
-	playAction_ = menu->addAction("&Play");
-	connect(playAction_, &QAction::triggered, this, &MainWindow::onPlayAction);
-	pauseAction_ = menu->addAction("P&ause");
-	connect(pauseAction_, &QAction::triggered, this, &MainWindow::onPauseAction);
-	stopAction_ = menu->addAction("&Stop");
-	connect(stopAction_, &QAction::triggered, this, &MainWindow::onStopAction);
-}
+//void MainWindow::createPlaybackMenu()
+//{
+//	auto menu = menuBar()->addMenu("&Playback");
+//	playAction_ = menu->addAction("&Play");
+//	connect(playAction_, &QAction::triggered, this, &MainWindow::onPlayAction);
+//	playAction_->setEnabled(false);
+//	pauseAction_ = menu->addAction("P&ause");
+//	connect(pauseAction_, &QAction::triggered, this, &MainWindow::onPauseAction);
+//	pauseAction_->setEnabled(false);
+//	stopAction_ = menu->addAction("&Stop");
+//	connect(stopAction_, &QAction::triggered, this, &MainWindow::onStopAction);
+//	stopAction_->setEnabled(false);
+//}
 
-void MainWindow::onStopAction()
-{
-
-}
-
-void MainWindow::onPauseAction()
-{
-	
-}
-
-void MainWindow::onPlayAction()
-{
-
-}
+//void MainWindow::onStopAction()
+//{
+//	playAction_->setEnabled(false);
+//	pauseAction_->setEnabled(false);
+//	stopAction_->setEnable(false);
+//}
+//
+//void MainWindow::onPauseAction()
+//{
+//	playAction_->setEnabled(false);
+//	stopAction_->setEnabled(true);
+//}
+//
+//void MainWindow::onPlayAction()
+//{
+//	pause
+//}
 void MainWindow::createFileMenu()
 {
 	auto menu = menuBar()->addMenu("&File");
