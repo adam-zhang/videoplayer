@@ -25,8 +25,35 @@ void MainWindow::initialize()
 void MainWindow::createMenu()
 {
 	createFileMenu();
+	createPlaybackMenu();
 	createToolMenu();
 	createHelpMenu();
+}
+
+void MainWindow::createPlaybackMenu()
+{
+	auto menu = menuBar()->addMenu("&Playback");
+	playAction_ = menu->addAction("&Play");
+	connect(playAction_, &QAction::triggered, this, &MainWindow::onPlayAction);
+	pauseAction_ = menu->addAction("P&ause");
+	connect(pauseAction_, &QAction::triggered, this, &MainWindow::onPauseAction);
+	stopAction_ = menu->addAction("&Stop");
+	connect(stopAction_, &QAction::triggered, this, &MainWindow::onStopAction);
+}
+
+void MainWindow::onStopAction()
+{
+
+}
+
+void MainWindow::onPauseAction()
+{
+	
+}
+
+void MainWindow::onPlayAction()
+{
+
 }
 void MainWindow::createFileMenu()
 {
